@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>日誌</title>
+</head>
+<body>
+<?php 
+echo "<form name="" method="GET" action="" align="center">";
+echo $_GET["date"]." 日誌";
+?>
+
+<table style="width:50%" border="0" align="center" valign="center">
+<tr>
+
+<?php
+include_once("dbConnection.php");
+$db = new dbConnection();
+$SQLSTR= "SELECT * FROM `taskdiary` WHERE `id`=session["taskid"] and `date`=$_GET["date"]";
+$result=$db->dbQuery($SQLSTR);
+if($result){
+	echo '<td align="center"><textarea cols="50" rows="20" name="content">';
+	echo $result[2];
+	echo "</textarea></td>";
+}else{
+	echo '<td align="center"><textarea cols="50" rows="20" name="content"></textarea></td>';
+}
+
+?>
+
+  </tr>
+  <tr>
+    <td style="width:50%" align="center"><button type="button">取消</button> 
+    <button type="button">填寫完畢</button></td> 
+  </tr>
+</table>
+</form>
+</body>
+</html>
